@@ -1,6 +1,6 @@
 import Key from './Key.js'
 import { useKeyPressEvent } from 'react-use';
-import useGuessStore from '../store/index';
+import useGuessStore from '../store';
 
 
 const Keyboard = () => {
@@ -8,15 +8,19 @@ const Keyboard = () => {
   const keys = ['q', 'Q', 'w', 'W', 'e', 'E', 'r', 'R', 't', 'T', 'y', 'Y', 'u', 'U', 'i', 'I', 'o', 'O', 'p', 'P', 'a', 'A', 's', 'S', 'd', 'D', 'f', 'F', 'g', 'G', 'h', 'H', 'j', 'J', 'k', 'K', 'l', 'L', 'ñ', 'Ñ', 'z', 'Z', 'x', 'X', 'c', 'C', 'v', 'V', 'b', 'B', 'n', 'N', 'm', 'M', 'Enter', 'Backspace'];
 
   const addLetterToGuess = useGuessStore((state) => state.addLetterToGuess)
+  const backspaceLetterFromGuess = useGuessStore((state) => state.backspaceLetterFromGuess)
 
   keys.forEach(key => {
     useKeyPressEvent(key, (e) => {
 
-      addLetterToGuess(e.key);
-
-      console.log(useGuessStore.getState().currentGuess);
-      console.log('TRIGGERED')
-      console.log(e.key)
+      if (e.key === 'Backspace') {
+        backspaceLetterFromGuess();
+      } else {
+        addLetterToGuess(e.key);
+      }
+      // console.log(useGuessStore.getState().currentGuess);
+      // console.log('TRIGGERED')
+      // console.log(e.key)
     });
   });
 
