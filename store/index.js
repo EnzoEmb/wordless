@@ -1,10 +1,13 @@
 import create from 'zustand'
 
 const useGuessStore = create(set => ({
+  guessHistory: [],
+  attemptNumber: 0,
   takedGuess: false,
   guessedCorrectly: false,
   currentWord: ['t', 'u', 'r', 'b', 'o'],
   currentGuess: [],
+  resetTakedGuess: () => set({ takedGuess: false }),
   addLetterToGuess: (letter) => set(state => {
     letter = letter.toLowerCase();
     if (state.currentGuess.length < 5) {
@@ -17,11 +20,21 @@ const useGuessStore = create(set => ({
   }),
   takeGuess: () => set(state => {
     if (state.currentGuess.join() === state.currentWord.join()) {
-      console.log('Adivinó');
-      return { guessedCorrectly: true, takedGuess: true }
+      // console.log('Adivinó');
+      return {
+        takedGuess: true,
+        guessedCorrectly: true,
+        attemptNumber: state.attemptNumber + 1
+      }
     } else {
-      console.log('No adivinó');
-      return { takedGuess: true }
+      // console.log('No adivinó');
+
+      return {
+        takedGuess: true,
+        attemptNumber: state.attemptNumber + 1,
+        guessHistory: [...state.guessHistory, state.currentGuess],
+        currentGuess: [],
+      }
     }
   })
 

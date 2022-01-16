@@ -10,14 +10,24 @@ const Keyboard = () => {
   const addLetterToGuess = useGuessStore((state) => state.addLetterToGuess)
   const backspaceLetterFromGuess = useGuessStore((state) => state.backspaceLetterFromGuess)
   const takeGuess = useGuessStore((state) => state.takeGuess)
+  const takedGuess = useGuessStore((state) => state.takedGuess)
+  const resetTakedGuess = useGuessStore((state) => state.resetTakedGuess)
 
+  
 
   const handleKeyPress = (keyPressed) => {
+    if(takedGuess) return;
     if (keyPressed === 'Backspace') {
       backspaceLetterFromGuess();
     } else if (keyPressed != 'Enter') {
       addLetterToGuess(keyPressed);
     } else if (currentGuess.length == 5 && keyPressed === 'Enter') {
+      
+      setTimeout(() => {
+        console.log('RESETED GUESS')
+        resetTakedGuess();
+      }, 1000);
+
       takeGuess();
     }
   }

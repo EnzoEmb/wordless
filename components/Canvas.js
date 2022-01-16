@@ -1,39 +1,25 @@
 import Word from './Word';
+import config from '../utils/config';
 import useGuessStore from '../store';
-// import { useKeyPressEvent } from 'react-use';
 
 const Canvas = () => {
+  const attemptNumber = useGuessStore((state) => state.attemptNumber);
+  const guessHistory = useGuessStore((state) => state.guessHistory);
 
-  const currentGuess = useGuessStore((state) => state.currentGuess);
-  const currentWord = useGuessStore((state) => state.currentWord);
-  const guessedCorrectly = useGuessStore((state) => state.guessedCorrectly);
-
-
-
-  // logica adivinar palabra
-  // const currentGuess = useGuessStore(state => state.currentGuess)
-  // const currentWord = useGuessStore(state => state.currentWord)
-
-  // useKeyPressEvent('Enter', () => {
-  //   if (currentGuess.join() === currentWord.join()) {
-  //     const word = currentWord
-  //     console.log('Adivinó');
-  //   } else {
-  //     const word = null
-  //     console.log('No adivinó');
-  //   }
-  // });
-
-
+  let words = [];
+  for (let index = 0; index < config.MAX_ATTEMPTS; index++) {
+    words.push(
+      <Word
+        key={index}
+        currentWord={attemptNumber == index ? true : false}
+        historyWord={guessHistory[index]}
+      />
+    )
+  }
 
   return (
     <div className="max-w-[480px] gap-1.5 flex flex-wrap justify-center mx-auto">
-      <Word guess={currentGuess} />
-      {/* <Word />
-      <Word />
-      <Word />
-      <Word />
-      <Word /> */}
+      {words}
     </div>
   );
 }
