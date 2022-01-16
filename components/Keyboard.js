@@ -12,7 +12,6 @@ const Keyboard = () => {
   const takeGuess = useGuessStore((state) => state.takeGuess)
   const takedGuess = useGuessStore((state) => state.takedGuess)
   const resetTakedGuess = useGuessStore((state) => state.resetTakedGuess)
-
   
 
   const handleKeyPress = (keyPressed) => {
