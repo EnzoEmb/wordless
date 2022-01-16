@@ -4,7 +4,7 @@ import Keyboard from '../components/Keyboard';
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-3xl flex flex-col justify-between min-h-screen py-10">
+    <div className="mx-auto max-w-3xl flex flex-col justify-between min-h-screen py-4 sm:py-10">
       <Header />
       <Canvas />
       <Keyboard />

@@ -4,8 +4,8 @@ import * as Dialog from '@radix-ui/react-dialog';
 const DialogAbout = () => {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="duration-200 transition-colors hover:bg-slate-100 rounded-xl grid place-items-center w-[50px] h-[50px]" title="Acerca de...">
-        <img src="message-question.svg" alt="Acerca de..." />
+      <Dialog.Trigger className="duration-200 transition-colors hover:bg-slate-100 rounded-xl grid place-items-center w-[30px] h-[30px] sm:w-[50px] sm:h-[50px]" title="Acerca de...">
+        <img className="w-[20px] sm:w-auto" src="message-question.svg" alt="Acerca de..." />
       </Dialog.Trigger>
 
       <Dialog.Portal>

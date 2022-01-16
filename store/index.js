@@ -28,7 +28,6 @@ const useGuessStore = create(set => ({
       }
     } else {
       // console.log('No adivinó');
-
       return {
         takedGuess: true,
         attemptNumber: state.attemptNumber + 1,

@@ -18,7 +18,7 @@ const Canvas = () => {
   }
 
   return (
-    <div className="max-w-[480px] gap-1.5 flex flex-wrap justify-center mx-auto">
+    <div className="my-3 max-w-[480px] gap-1.5 flex flex-wrap justify-center mx-auto flex-col">
       {words}
     </div>
   );

@@ -35,7 +35,7 @@ const Keyboard = () => {
   useKeyPress(keys, (e) => handleKeyPress(e.key))
 
   return (
-    <div className="max-w-[570px] gap-1.5 flex flex-wrap justify-center mx-auto">
+    <div className="max-w-[320px] sm:max-w-[570px] sm:gap-1.5 gap-0.5 flex flex-wrap justify-center mx-auto">
       {keys.map((keyLetter, index) => {
 
         if (keyLetter.length != 1) {
