@@ -5,18 +5,12 @@ const useGuessStore = create(set => ({
   attemptNumber: 0,
   takedGuess: false,
   guessedCorrectly: false,
-  currentWord: ['t', 'u', 'r', 'b', 'o'],
+  currentWord: ['t', 'i', 't', 'a', 'n'],
   wrongGuessedLetters: [],
   currentGuess: [],
   resetTakedGuess: () => set({ takedGuess: false }),
-  // addWrongLetter: (letter) => set((state) => {
-  //   return { wrongGuessedLetters: [...state.wrongGuessedLetters, letter] };
-  // }),
   addLetterToGuess: (letter) => set(state => {
     letter = letter.toLowerCase();
-    // if (state.currentWord.includes(letter)) {
-    //   return { wrongGuessedLetters: [...state.wrongGuessedLetters, letter] };
-    // }
     if (state.currentGuess.length < 5) {
       return { currentGuess: [...state.currentGuess, letter] }
     }
@@ -27,24 +21,21 @@ const useGuessStore = create(set => ({
   }),
   takeGuess: () => set(state => {
     if (state.currentGuess.join() === state.currentWord.join()) { // Guess is correct
+
       return {
         takedGuess: true,
         guessedCorrectly: true,
-        attemptNumber: state.attemptNumber + 1
       }
     } else { // Guess is wrong
 
-      // console.log(state.wrongGuessedLetters);
 
+      // Take wrong letter from currentGuess
       let wrongLetters = [];
       state.currentGuess.forEach(letter => {
         if (!state.currentWord.includes(letter)) {
           wrongLetters.push(letter);
         }
       });
-      // remove duplicate values
-      // wrongLetters = [...new Set(wrongLetters)];
-      // console.log(wrongLetters);
 
       return {
         takedGuess: true,

@@ -1,6 +1,8 @@
 import Key from './Key.js'
 import useGuessStore from '../store';
 import useKeyPress from '../hooks/useKeyPressEventArray.js'
+import confetti from 'canvas-confetti';
+import { useEffect } from 'react';
 
 const Keyboard = () => {
 
@@ -12,26 +14,37 @@ const Keyboard = () => {
   const takeGuess = useGuessStore((state) => state.takeGuess)
   const takedGuess = useGuessStore((state) => state.takedGuess)
   const resetTakedGuess = useGuessStore((state) => state.resetTakedGuess)
-  
+  const guessedCorrectly = useGuessStore((state) => state.guessedCorrectly)
+
 
   const handleKeyPress = (keyPressed) => {
-    if(takedGuess) return;
+    if (takedGuess) return;
     if (keyPressed === 'Backspace') {
       backspaceLetterFromGuess();
     } else if (keyPressed != 'Enter') {
       addLetterToGuess(keyPressed);
     } else if (currentGuess.length == 5 && keyPressed === 'Enter') {
-      
-      setTimeout(() => {
-        console.log('RESETED GUESS')
-        resetTakedGuess();
-      }, 1000);
-
       takeGuess();
     }
   }
 
   useKeyPress(keys, (e) => handleKeyPress(e.key))
+
+
+  // Check if the guess is correct or not
+  useEffect(() => {
+    console.log('guessedCorrectly', guessedCorrectly)
+    if (guessedCorrectly) {
+      setTimeout(() => {
+        confetti();
+      }, 800);
+    } else {
+      setTimeout(() => {
+        resetTakedGuess();
+      }, 1000);
+    }
+  }, [takedGuess, guessedCorrectly, resetTakedGuess])
+
 
   return (
     <div className="max-w-[320px] sm:max-w-[570px] sm:gap-1.5 gap-0.5 flex flex-wrap justify-center mx-auto">
