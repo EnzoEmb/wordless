@@ -2,11 +2,10 @@ import Letter from './Letter';
 
 const Word = (props) => {
 
-  if (props.guess) {
-    let remainingLetters = [];
-    for (let index = 0; index < (5 - props.guess.length); index++) {
-      remainingLetters.push(<Letter />);
-    }
+  let remainingLetters = [];
+
+  for (let index = 0; index < (5 - (props.guess ? props.guess.length : 0)); index++) {
+    remainingLetters.push(<Letter key={index} />);
   }
 
   return (

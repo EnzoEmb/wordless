@@ -19,7 +19,7 @@ const DialogAbout = () => {
 
 
             <hr className="my-3" />
-            Este juego es un clon de <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" rel="noopener noreferer nofollow" className="text-blue-500">Wordle de Josh Wardle</a>. También puedes jugar al <a href="https://wordle.danielfrg.com/" target="_blank" rel="noopener noreferer nofollow" className="text-blue-500">Wordle en español de @danielfrg</a>
+            Este juego es un clon de <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" rel="noopener noreferrer nofollow" className="text-blue-500">Wordle de Josh Wardle</a>. También puedes jugar al <a href="https://wordle.danielfrg.com/" target="_blank" rel="noopener noreferrer nofollow" className="text-blue-500">Wordle en español de @danielfrg</a>
 
           </Dialog.Description>
           <Dialog.Close className="absolute top-5 right-5 duration-200 transition-colors hover:bg-slate-100 rounded-xl grid place-items-center w-[50px] h-[50px]"><img src="close-square.svg" alt="Cerrar" /></Dialog.Close>
