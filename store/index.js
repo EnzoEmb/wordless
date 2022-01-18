@@ -1,26 +1,23 @@
 import create from 'zustand'
 
 const useGuessStore = create(set => ({
+  currentWord: [],
+  currentGuess: [],
   wordsRepository: [],
-  maxLetters: 5,
   guessHistory: [],
   attemptNumber: 0,
   takedGuess: false,
   guessedCorrectly: false,
-  justFetched: false,
-  // currentWord: ['t', 'i', 't', 'a', 'n'],
-  currentWord: [],
   wrongGuessedLetters: [],
-  currentGuess: [],
   resetTakedGuess: () => set({ takedGuess: false }),
-  addLetterToGuess: (letter) => set(state => {
+  addGuessLetter: (letter) => set(state => {
     letter = letter.toLowerCase();
     if (state.currentGuess.length < 5) {
       return { currentGuess: [...state.currentGuess, letter] }
     }
   }),
-  backspaceLetterFromGuess: () => set(state => {
-    let newGuess = state.currentGuess.slice(0, state.currentGuess.length - 1);
+  removeGuessLetter: () => set(state => {
+    const newGuess = state.currentGuess.slice(0, state.currentGuess.length - 1);
     return { currentGuess: newGuess }
   }),
   takeGuess: () => set(state => {
@@ -28,7 +25,6 @@ const useGuessStore = create(set => ({
       return {
         takedGuess: true,
         guessedCorrectly: true,
-        justFetched: false,
       }
     } else { // Guess is wrong
       // Take wrong letter from currentGuess
@@ -44,19 +40,17 @@ const useGuessStore = create(set => ({
         guessHistory: [...state.guessHistory, state.currentGuess],
         currentGuess: [],
         wrongGuessedLetters: [...state.wrongGuessedLetters, ...wrongLetters],
-        justFetched: false,
       }
     }
   }),
-  fetchWords: async (maxLetters) => {
-    const letters = await fetch(`${window.location.href}/api/es/words/${maxLetters}/10`);
+  fetchNewWords: async () => {
+    const letters = await fetch(`${window.location.href}/api/es/words/5/10`);
     const words = await letters.json();
     const newCurrentWord = words[0].split('');
     words.shift(); // Remove the first word
     set({
       wordsRepository: words,
       currentWord: newCurrentWord,
-      justFetched: true,
     })
   }
 }))
