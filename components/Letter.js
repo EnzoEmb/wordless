@@ -4,13 +4,12 @@ const Letter = (props) => {
 
   let classes;
   const currentWord = useGuessStore((state) => state.currentWord);
-  const takedGuess = useGuessStore((state) => state.takedGuess);
-  // const addWrongLetter = useGuessStore((state) => state.addWrongLetter);
-
-  let guessLetter = currentWord[props.index];
+  const currentGuess = useGuessStore((state) => state.currentGuess);
+  const isGuess = currentGuess.length == 0;
+  const guessLetter = currentWord[props.index];
 
   if (props.letter) {
-    if (takedGuess || props.isHistory) {
+    if (isGuess || props.isHistory) {
       if (guessLetter === props.letter) {
         classes = "animate-flip-to-green";
       } else if (currentWord.includes(props.letter)) {

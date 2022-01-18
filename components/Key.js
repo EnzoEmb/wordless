@@ -6,11 +6,11 @@ const Key = (props) => {
 
 
   let classes;
-  const wrongGuessedLetters = useGuessStore((state) => state.wrongGuessedLetters)
+  const wrongLetters = useGuessStore((state) => state.wrongLetters)
 
   let letter = props.children.toString();
   letter = letter.toLowerCase();
-  if (wrongGuessedLetters.includes(letter)) {
+  if (wrongLetters.includes(letter)) {
     classes = "bg-gray-400 text-white border-gray-400"
   }
 

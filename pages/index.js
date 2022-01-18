@@ -1,7 +1,7 @@
 import Header from '../components/Header';
 import Canvas from '../components/Canvas';
 import Keyboard from '../components/Keyboard';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import useGuessStore from '../store';
 import useKeyPress from '../hooks/useKeyPressEventArray.js'
@@ -12,14 +12,13 @@ const keys = ['q', 'Q', 'w', 'W', 'e', 'E', 'r', 'R', 't', 'T', 'y', 'Y', 'u', '
 export default function Home() {
 
   const currentGuess = useGuessStore(state => state.currentGuess)
+  const currentWord = useGuessStore((state) => state.currentWord)
+
   const addGuessLetter = useGuessStore((state) => state.addGuessLetter)
   const removeGuessLetter = useGuessStore((state) => state.removeGuessLetter)
-  const takeGuess = useGuessStore((state) => state.takeGuess)
-  const takedGuess = useGuessStore((state) => state.takedGuess)
-  const resetTakedGuess = useGuessStore((state) => state.resetTakedGuess)
-  const guessedCorrectly = useGuessStore((state) => state.guessedCorrectly)
-  const currentWord = useGuessStore((state) => state.currentWord)
   const fetchNewWords = useGuessStore((state) => state.fetchNewWords)
+  const setupNewGuess = useGuessStore((state) => state.setupNewGuess)
+  const setupNewWord = useGuessStore((state) => state.setupNewWord)
 
   // Fetch new words if empty
   if (currentWord.length === 0) {
@@ -30,29 +29,34 @@ export default function Home() {
   useKeyPress(keys, (e) => handleKeyPress(e.key))
 
   const handleKeyPress = (key) => {
-    if (takedGuess) return;
-    if (currentGuess.length == 5 && key === 'Enter') {
-      takeGuess();
-    } else if (key === 'Backspace') {
+    console.log('triggered guess');
+    if (key === 'Backspace') {
       removeGuessLetter();
     } else if (key != 'Enter') {
       addGuessLetter(key);
+    } else if (key === 'Enter' && currentGuess.length == 5) {
+      handleGuess();
     }
   }
 
-  // Check if the guess is correct or not
-  useEffect(() => {
-    if (guessedCorrectly) {
-      setTimeout(() => {
-        confetti();
-      }, 800);
+  const handleGuess = () => {
+    console.log('triggered guess');
+    let won = currentGuess.join() === currentWord.join();
+    if (won) {
+      confetti({
+        particleCount: 200,
+        spread: 360,
+        startVelocity: 40,
+        origin: {
+          x: 0.5,
+          y: 0.1
+        }
+      });
+      setupNewWord();
     } else {
-      setTimeout(() => {
-        resetTakedGuess();
-      }, 1000);
+      setupNewGuess();
     }
-  }, [takedGuess, guessedCorrectly, resetTakedGuess])
-
+  }
 
   useEffect(() => {
     const vh = window.innerHeight * 0.01;

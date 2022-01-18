@@ -6,10 +6,7 @@ const useGuessStore = create(set => ({
   wordsRepository: [],
   guessHistory: [],
   attemptNumber: 0,
-  takedGuess: false,
-  guessedCorrectly: false,
-  wrongGuessedLetters: [],
-  resetTakedGuess: () => set({ takedGuess: false }),
+  wrongLetters: [],
   addGuessLetter: (letter) => set(state => {
     letter = letter.toLowerCase();
     if (state.currentGuess.length < 5) {
@@ -20,27 +17,30 @@ const useGuessStore = create(set => ({
     const newGuess = state.currentGuess.slice(0, state.currentGuess.length - 1);
     return { currentGuess: newGuess }
   }),
-  takeGuess: () => set(state => {
-    if (state.currentGuess.join() === state.currentWord.join()) { // Guess is correct
-      return {
-        takedGuess: true,
-        guessedCorrectly: true,
+  setupNewWord: () => set(state => {
+    const newCurrentWord = state.wordsRepository[0].split('');
+    return {
+      attemptNumber: 0,
+      guessHistory: [],
+      currentGuess: [],
+      wrongLetters: [],
+      currentWord: newCurrentWord,
+      wordsRepository: [...state.wordsRepository.slice(1)]
+    }
+  }),
+  setupNewGuess: () => set(state => {
+    // Take wrong letter from currentGuess
+    let wrongLetters = [];
+    state.currentGuess.forEach(letter => {
+      if (!state.currentWord.includes(letter)) {
+        wrongLetters.push(letter);
       }
-    } else { // Guess is wrong
-      // Take wrong letter from currentGuess
-      let wrongLetters = [];
-      state.currentGuess.forEach(letter => {
-        if (!state.currentWord.includes(letter)) {
-          wrongLetters.push(letter);
-        }
-      });
-      return {
-        takedGuess: true,
-        attemptNumber: state.attemptNumber + 1,
-        guessHistory: [...state.guessHistory, state.currentGuess],
-        currentGuess: [],
-        wrongGuessedLetters: [...state.wrongGuessedLetters, ...wrongLetters],
-      }
+    });
+    return {
+      attemptNumber: state.attemptNumber + 1,
+      guessHistory: [...state.guessHistory, state.currentGuess],
+      currentGuess: [],
+      wrongLetters: [...state.wrongLetters, ...wrongLetters],
     }
   }),
   fetchNewWords: async () => {
