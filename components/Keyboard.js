@@ -15,6 +15,10 @@ const Keyboard = () => {
   const takedGuess = useGuessStore((state) => state.takedGuess)
   const resetTakedGuess = useGuessStore((state) => state.resetTakedGuess)
   const guessedCorrectly = useGuessStore((state) => state.guessedCorrectly)
+  const currentWord = useGuessStore((state) => state.currentWord)
+  const fetchWords = useGuessStore((state) => state.fetchWords)
+  const maxLetters = useGuessStore((state) => state.maxLetters)
+  // const wordsRepository = useGuessStore((state) => state.wordsRepository)
 
 
   const handleKeyPress = (keyPressed) => {
@@ -24,12 +28,16 @@ const Keyboard = () => {
     } else if (keyPressed != 'Enter') {
       addLetterToGuess(keyPressed);
     } else if (currentGuess.length == 5 && keyPressed === 'Enter') {
-      takeGuess();
+      if (currentWord.length == 0) {
+        fetchWords(maxLetters);
+      } else {
+        takeGuess();
+      }
     }
   }
 
-  useKeyPress(keys, (e) => handleKeyPress(e.key))
 
+  useKeyPress(keys, (e) => handleKeyPress(e.key))
 
   // Check if the guess is correct or not
   useEffect(() => {

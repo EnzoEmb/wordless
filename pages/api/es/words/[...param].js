@@ -20,5 +20,5 @@ export default async function handler(req, res) {
   const wordsLimited = wordsFixed.slice(0, maxWords);
 
 
-  res.end(JSON.stringify(wordsLimited))
+  res.status(200).json(wordsLimited);
 }

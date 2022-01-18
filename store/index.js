@@ -1,11 +1,14 @@
 import create from 'zustand'
 
 const useGuessStore = create(set => ({
+  wordsRepository: [],
+  maxLetters: 5,
   guessHistory: [],
   attemptNumber: 0,
   takedGuess: false,
   guessedCorrectly: false,
-  currentWord: ['t', 'i', 't', 'a', 'n'],
+  // currentWord: ['t', 'i', 't', 'a', 'n'],
+  currentWord: [],
   wrongGuessedLetters: [],
   currentGuess: [],
   resetTakedGuess: () => set({ takedGuess: false }),
@@ -21,14 +24,11 @@ const useGuessStore = create(set => ({
   }),
   takeGuess: () => set(state => {
     if (state.currentGuess.join() === state.currentWord.join()) { // Guess is correct
-
       return {
         takedGuess: true,
         guessedCorrectly: true,
       }
     } else { // Guess is wrong
-
-
       // Take wrong letter from currentGuess
       let wrongLetters = [];
       state.currentGuess.forEach(letter => {
@@ -36,7 +36,6 @@ const useGuessStore = create(set => ({
           wrongLetters.push(letter);
         }
       });
-
       return {
         takedGuess: true,
         attemptNumber: state.attemptNumber + 1,
@@ -45,8 +44,17 @@ const useGuessStore = create(set => ({
         wrongGuessedLetters: [...state.wrongGuessedLetters, ...wrongLetters]
       }
     }
-  })
-
+  }),
+  fetchWords: async (maxLetters) => {
+    const letters = await fetch(`${window.location.href}/api/es/words/${maxLetters}/10`);
+    const words = await letters.json();
+    const newCurrentWord = words[0].split('');
+    words.shift(); // Remove the first word
+    set({
+      wordsRepository: words,
+      currentWord: newCurrentWord,
+    })
+  }
 }))
 
 export default useGuessStore;
