@@ -15,8 +15,30 @@ module.exports = {
         'flip-to-gray': 'flipToGray .75s ease-in-out 0s 1 forwards running',
         'flip-to-green': 'flipToGreen .75s ease-in-out 0s 1 forwards running',
         'flip-to-yellow': 'flipToYellow .75s ease-in-out 0s 1 forwards running',
+        'dialog-in': 'modalIn .3s ease-out',
+        'fade-in': 'fadeIn .2s ease-out',
       },
       keyframes: {
+        fadeIn: {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
+        modalIn: {
+          '0%': {
+            transformOrigin: 'center',
+            transform: 'scale(0.9)',
+            opacity: '0',
+          },
+          '100%': {
+            transformOrigin: 'center',
+            transform: 'scale(1)',
+            opacity: '1',
+          },
+        },
         flipToGray: {
           '0%': {
             transform: 'rotateX(0deg)',
