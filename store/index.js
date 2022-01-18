@@ -7,6 +7,7 @@ const useGuessStore = create(set => ({
   attemptNumber: 0,
   takedGuess: false,
   guessedCorrectly: false,
+  justFetched: false,
   // currentWord: ['t', 'i', 't', 'a', 'n'],
   currentWord: [],
   wrongGuessedLetters: [],
@@ -27,6 +28,7 @@ const useGuessStore = create(set => ({
       return {
         takedGuess: true,
         guessedCorrectly: true,
+        justFetched: false,
       }
     } else { // Guess is wrong
       // Take wrong letter from currentGuess
@@ -41,7 +43,8 @@ const useGuessStore = create(set => ({
         attemptNumber: state.attemptNumber + 1,
         guessHistory: [...state.guessHistory, state.currentGuess],
         currentGuess: [],
-        wrongGuessedLetters: [...state.wrongGuessedLetters, ...wrongLetters]
+        wrongGuessedLetters: [...state.wrongGuessedLetters, ...wrongLetters],
+        justFetched: false,
       }
     }
   }),
@@ -53,6 +56,7 @@ const useGuessStore = create(set => ({
     set({
       wordsRepository: words,
       currentWord: newCurrentWord,
+      justFetched: true,
     })
   }
 }))

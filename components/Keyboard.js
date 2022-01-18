@@ -18,7 +18,7 @@ const Keyboard = () => {
   const currentWord = useGuessStore((state) => state.currentWord)
   const fetchWords = useGuessStore((state) => state.fetchWords)
   const maxLetters = useGuessStore((state) => state.maxLetters)
-  // const wordsRepository = useGuessStore((state) => state.wordsRepository)
+  const justFetched = useGuessStore((state) => state.justFetched)
 
 
   const handleKeyPress = (keyPressed) => {
@@ -30,11 +30,18 @@ const Keyboard = () => {
     } else if (currentGuess.length == 5 && keyPressed === 'Enter') {
       if (currentWord.length == 0) {
         fetchWords(maxLetters);
+
       } else {
         takeGuess();
       }
     }
   }
+  
+
+  if (justFetched) {
+    takeGuess()
+  }
+
 
 
   useKeyPress(keys, (e) => handleKeyPress(e.key))
