@@ -8,7 +8,7 @@ const iconSettings = <Image width="23" height="23" className="w-[20px] sm:w-[23p
 const Header = () => {
 
   return (
-    <header className="max-w-[570px] w-full mx-auto border-solid border-b flex justify-between items-center sm:pb-3 px-3 sm:px-0">
+    <header className="max-w-[570px] w-full mx-auto border-solid border-b border-[#f1e1cf] flex justify-between items-center sm:pb-3 px-3 sm:px-0">
       <div className="sm:w-[130px] flex items-center">
         <Dialog icon={iconQuestion} title="Sobre Wordless">
           Adivina la palabra en 6 intentos o menos.

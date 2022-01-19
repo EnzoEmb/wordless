@@ -4,7 +4,7 @@ import Image from 'next/image';
 const Dialog = (props) => {
   return (
     <Modal.Root>
-      <Modal.Trigger className="duration-200 transition-colors hover:bg-slate-100 rounded-xl grid place-items-center w-[30px] h-[30px] sm:w-[50px] sm:h-[50px]" title="Acerca de...">
+      <Modal.Trigger className="duration-200 transition hover:bg-slate-100 rounded-xl grid place-items-center w-[30px] h-[30px] sm:w-[50px] sm:h-[50px] focus:ring-2 focus:ring-indigo-500 hover:ring-2 hover:ring-indigo-500 focus:outline-none">
         {props.icon}
       </Modal.Trigger>
       <Modal.Portal>
