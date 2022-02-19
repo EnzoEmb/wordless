@@ -1,6 +1,6 @@
-import Word from './Word';
-import config from '../utils/config';
-import useGuessStore from '../store';
+import Word from "./Word";
+import config from "../utils/config";
+import useGuessStore from "../store";
 
 const Canvas = () => {
   const attemptNumber = useGuessStore((state) => state.attemptNumber);
@@ -14,14 +14,14 @@ const Canvas = () => {
         currentWord={attemptNumber == index ? true : false}
         historyWord={guessHistory[index]}
       />
-    )
+    );
   }
 
   return (
-    <div className="my-3 max-w-[480px] gap-1.5 flex flex-wrap justify-center mx-auto flex-col">
+    <div className="my-3 flex-grow max-w-[480px] gap-[.5vh] sm:gap-1.5 flex flex-wrap justify-center mx-auto flex-col">
       {words}
     </div>
   );
-}
+};
 
 export default Canvas;
