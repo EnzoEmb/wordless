@@ -150,14 +150,20 @@ export default function Home() {
             y: 0.1,
           },
         });
-        // setupNewWord();
+        setTimeout(() => {
+          setupNewWord();
+        }, 1000);
       }, 1900);
     } else {
+      setupNewGuess();
       if (attemptNumber === 5) {
-        notify(currentWord.join(""));
-        setupNewWord();
+        setTimeout(() => {
+          notify(currentWord.join(""));
+          setTimeout(() => {
+            setupNewWord();
+          }, 1000);
+        }, 1900);
       } else {
-        setupNewGuess();
         setTimeout(() => {
           setupAllowTyping(true);
         }, 1900);
@@ -177,7 +183,7 @@ export default function Home() {
 
   return (
     <div
-      className="mx-auto max-w-3xl flex flex-col justify-between py-4 sm:py-10"
+      className="mx-auto max-w-3xl flex flex-col justify-between py-4 sm:pb-5"
       style={{ minHeight: "calc(var(--vh) * 100)" }}
     >
       <Toaster />

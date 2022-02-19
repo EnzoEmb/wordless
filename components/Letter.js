@@ -21,7 +21,7 @@ const Letter = ({ letter, isHistory, index }) => {
   return (
     <div
       className={
-        "transition w-[9vh] h-[9vh]  md:w-[6vh] md:h-[6vh] md:max-w-[60px] md:max-h-[60px] border-solid border-2 flex place-items-center text-center justify-center uppercase text-xl rounded font-extrabold bg-white " +
+        "aspect-square transition h-[7vh]  md:w-[6vh] md:h-[6vh] md:max-w-[60px] md:max-h-[60px] border-solid border-2 flex place-items-center text-center justify-center uppercase text-xl rounded font-extrabold bg-white " +
         (classes
           ? classes
           : letter
