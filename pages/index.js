@@ -135,9 +135,7 @@ export default function Home() {
   };
 
   const handleGuess = () => {
-    console.log("triggered guess");
-    // console.log(currentGuess.join());
-    // console.log(currentWord.join(''));
+    // console.log("triggered guess");
     let won = currentGuess.join() === currentWord.join();
     if (won) {
       setupNewGuess();
@@ -152,9 +150,9 @@ export default function Home() {
             y: 0.1,
           },
         });
-        // setTimeout(() => {
-        //   setupNewWord();
-        // }, 1000);
+        setTimeout(() => {
+          setupNewWord();
+        }, 1900);
       }, 1900);
     } else {
       setupNewGuess();
@@ -189,7 +187,6 @@ export default function Home() {
       style={{ minHeight: "calc(var(--vh) * 100)" }}
     >
       <Toaster />
-
       <Header />
       <Canvas />
       <Keyboard keys={keys} handleKeyPress={handleKeyPress} />
