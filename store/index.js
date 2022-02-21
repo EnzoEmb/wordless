@@ -64,7 +64,7 @@ const useGuessStore = create(
         };
       }),
     fetchNewWords: async () => {
-      const letters = await fetch(`${window.location.href}/api/es/words/5/10`);
+      const letters = await fetch(`${window?.location.href}/api/es/words/5/10`);
       const words = await letters.json();
       words.shift(); // Remove the first word
 
