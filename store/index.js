@@ -8,6 +8,8 @@ const useGuessStore = create((set) => ({
   attemptNumber: 0,
   wrongLetters: [],
   allowTyping: true,
+  hasWon: false,
+  setWon: (value) => set(() => ({ hasWon: value })),
   addGuessLetter: (letter) =>
     set((state) => {
       letter = letter.toLowerCase();

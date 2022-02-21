@@ -112,6 +112,7 @@ export default function Home() {
   const attemptNumber = useGuessStore((state) => state.attemptNumber);
   const allowTyping = useGuessStore((state) => state.allowTyping);
   const setupAllowTyping = useGuessStore((state) => state.setupAllowTyping);
+  const setWon = useGuessStore((state) => state.setWon);
 
   // Fetch new words if empty
   if (currentWord.length === 0) {
@@ -141,6 +142,7 @@ export default function Home() {
     if (won) {
       setupNewGuess();
       setTimeout(() => {
+        setWon(true);
         confetti({
           particleCount: 200,
           spread: 360,
@@ -150,9 +152,9 @@ export default function Home() {
             y: 0.1,
           },
         });
-        setTimeout(() => {
-          setupNewWord();
-        }, 1000);
+        // setTimeout(() => {
+        //   setupNewWord();
+        // }, 1000);
       }, 1900);
     } else {
       setupNewGuess();
