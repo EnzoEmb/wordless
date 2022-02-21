@@ -1,14 +1,13 @@
 import useGuessStore from "../store";
 
-const Letter = ({ letter, isHistory, index }) => {
+const Letter = ({ letter, isHistory, index, wordIndex }) => {
   let classes;
   const currentWord = useGuessStore((state) => state.currentWord);
   const currentGuess = useGuessStore((state) => state.currentGuess);
   const hasWon = useGuessStore((state) => state.hasWon);
   const isGuess = currentGuess.length == 0;
   const guessLetter = currentWord[index];
-
-  console.log(currentWord.join(""));
+  const attemptNumber = useGuessStore((state) => state.attemptNumber);
 
   if (letter) {
     if (isGuess || isHistory) {
@@ -22,10 +21,9 @@ const Letter = ({ letter, isHistory, index }) => {
     }
   }
 
-  if (hasWon && isHistory) {
+  if (hasWon && wordIndex + 1 == attemptNumber) {
     classes = "animate-won bg-[#34D399] border-[#34D399] text-white";
   }
-
   return (
     <div
       className={

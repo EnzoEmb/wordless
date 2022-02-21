@@ -1,11 +1,11 @@
 import Letter from "./Letter";
-import useGuessStore from "../store";
 import config from "../utils/config";
+import useGuessStore from "../store";
 
-const Word = (props) => {
+const Word = ({ currentWord, historyWord, index }) => {
   const currentGuess = useGuessStore((state) => state.currentGuess);
-
-  if (props.currentWord) {
+  const wordIndex = index;
+  if (currentWord) {
     // logica para mostrar las letras que faltan
     let remainingLetters = [];
     for (
@@ -28,7 +28,7 @@ const Word = (props) => {
         {remainingLetters}
       </div>
     );
-  } else if (props.historyWord) {
+  } else if (historyWord) {
     return (
       <div
         className={
@@ -36,8 +36,14 @@ const Word = (props) => {
           (config.DEBUG ? "border-l-4 border-yellow-300" : "")
         }
       >
-        {props.historyWord?.map((letter, index) => (
-          <Letter key={index} index={index} letter={letter} isHistory={true} />
+        {historyWord?.map((letter, index) => (
+          <Letter
+            key={index}
+            index={index}
+            letter={letter}
+            isHistory={true}
+            wordIndex={wordIndex}
+          />
         ))}
       </div>
     );

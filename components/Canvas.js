@@ -11,6 +11,7 @@ const Canvas = () => {
     words.push(
       <Word
         key={index}
+        index={index}
         currentWord={attemptNumber == index ? true : false}
         historyWord={guessHistory[index]}
       />
