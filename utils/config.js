@@ -1,5 +1,5 @@
 const config = {
-  DEBUG: true,
+  DEBUG: false,
   MAX_ATTEMPTS: 6,
   MAX_WORDS: 10,
   WORD_LETTERS: [4, 5],

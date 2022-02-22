@@ -2,108 +2,16 @@ import Header from "../components/Header";
 import Canvas from "../components/Canvas";
 import Keyboard from "../components/Keyboard";
 import { useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import useGuessStore from "../store";
 import useKeyPress from "../hooks/useKeyPressEventArray.js";
 import confetti from "canvas-confetti";
-
-const keys = [
-  "q",
-  "Q",
-  "w",
-  "W",
-  "e",
-  "E",
-  "r",
-  "R",
-  "t",
-  "T",
-  "y",
-  "Y",
-  "u",
-  "U",
-  "i",
-  "I",
-  "o",
-  "O",
-  "p",
-  "P",
-  "a",
-  "A",
-  "s",
-  "S",
-  "d",
-  "D",
-  "f",
-  "F",
-  "g",
-  "G",
-  "h",
-  "H",
-  "j",
-  "J",
-  "k",
-  "K",
-  "l",
-  "L",
-  "ñ",
-  "Ñ",
-  "Enter",
-  "z",
-  "Z",
-  "x",
-  "X",
-  "c",
-  "C",
-  "v",
-  "V",
-  "b",
-  "B",
-  "n",
-  "N",
-  "m",
-  "M",
-  "Backspace",
-];
-
-const notify = (word) =>
-  toast.custom(
-    (t) => (
-      <div
-        className={`${
-          t.visible ? "animate-enter" : "animate-leave"
-        } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-      >
-        <div className="flex-1 w-0 p-4">
-          <div className="flex items-start">
-            <div className="flex-shrink-0 pt-0.5"></div>
-            <div className="ml-3 flex-1">
-              <p className="text-sm font-medium text-gray-900">
-                La palabra era:
-              </p>
-              <p className="mt-1 text-sm text-gray-500 uppercase">{word}</p>
-            </div>
-          </div>
-        </div>
-        <div className="flex border-l border-gray-200">
-          <button
-            onClick={() => toast.dismiss()}
-            className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            Cerrar
-          </button>
-        </div>
-      </div>
-    ),
-    {
-      duration: 7000,
-    }
-  );
+import { ToastMiss, ToastWon } from "../components/Toasts";
+import keys from "../utils/keys";
 
 export default function Home() {
   const currentGuess = useGuessStore((state) => state.currentGuess);
   const currentWord = useGuessStore((state) => state.currentWord);
-
   const addGuessLetter = useGuessStore((state) => state.addGuessLetter);
   const removeGuessLetter = useGuessStore((state) => state.removeGuessLetter);
   const fetchNewWords = useGuessStore((state) => state.fetchNewWords);
@@ -150,15 +58,13 @@ export default function Home() {
             y: 0.1,
           },
         });
-        setTimeout(() => {
-          setupNewWord();
-        }, 1900);
+        ToastWon(() => setupNewWord());
       }, 1900);
     } else {
       setupNewGuess();
       if (attemptNumber === 5) {
         setTimeout(() => {
-          notify(currentWord.join(""));
+          ToastMiss(currentWord.join(""));
           setTimeout(() => {
             setupNewWord();
           }, 1000);

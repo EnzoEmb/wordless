@@ -19,8 +19,18 @@ module.exports = {
         "fade-in": "fadeIn .2s ease-out",
         "input-letter": "inputLetter .2s ease-out",
         won: "letterWon .75s ease-out",
+        enter: "enter 200ms ease-out",
+        leave: "leave 150ms ease-in forwards",
       },
       keyframes: {
+        enter: {
+          "0%": { transform: "scale(0.9)", opacity: 0 },
+          "100%": { transform: "scale(1)", opacity: 1 },
+        },
+        leave: {
+          "0%": { transform: "scale(1)", opacity: 1 },
+          "100%": { transform: "scale(0.9)", opacity: 0 },
+        },
         letterWon: {
           "0%": {
             transform: "translateY(0px);",
