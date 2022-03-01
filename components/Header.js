@@ -31,10 +31,20 @@ const iconStats = (
 // );
 
 const Header = () => {
+  let firstOpen;
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("firstOpen") == "true") {
+      firstOpen = false;
+    } else {
+      firstOpen = true;
+      localStorage.setItem("firstOpen", "true");
+    }
+  }
+
   return (
     <header className="max-w-[570px] py-2 w-full mx-auto border-solid border-b border-[#f1e1cf] flex justify-between items-center sm:pb-3 px-3 sm:px-0">
       <div className="sm:w-[130px] flex items-center">
-        <Dialog icon={iconQuestion} title="Como jugar">
+        <Dialog icon={iconQuestion} title="Como jugar" initialOpen={firstOpen}>
           <p className="mb-3">Adivina la palabra en 6 intentos o menos.</p>
           <p className="mb-3">
             Cada intento debe ser una palabra válida de 5 letras.

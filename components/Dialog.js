@@ -1,9 +1,9 @@
 import * as Modal from "@radix-ui/react-dialog";
 import Image from "next/image";
 
-const Dialog = ({ icon, title, children }) => {
+const Dialog = ({ icon, title, children, initialOpen }) => {
   return (
-    <Modal.Root>
+    <Modal.Root defaultOpen={initialOpen}>
       <Modal.Trigger className="duration-200 transition hover:bg-slate-100 rounded-xl grid place-items-center w-[30px] h-[30px] sm:w-[50px] sm:h-[50px] focus:ring-2 focus:ring-indigo-500 hover:ring-2 hover:ring-indigo-500 focus:outline-none">
         {icon}
       </Modal.Trigger>
