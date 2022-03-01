@@ -1,7 +1,6 @@
 import Dialog from "./Dialog";
 import Image from "next/image";
 import FakeLetter from "./FakeLetter";
-import { useEffect, useState } from "react";
 
 const iconQuestion = (
   <Image
@@ -21,19 +20,19 @@ const iconStats = (
     alt="Mis estadísticas"
   />
 );
-const iconSettings = (
-  <Image
-    width="23"
-    height="23"
-    className="w-[20px] sm:w-[23px]"
-    src="/settings.svg"
-    alt="Opciones"
-  />
-);
+// const iconSettings = (
+//   <Image
+//     width="23"
+//     height="23"
+//     className="w-[20px] sm:w-[23px]"
+//     src="/settings.svg"
+//     alt="Opciones"
+//   />
+// );
 
 const Header = () => {
   return (
-    <header className="max-w-[570px] w-full mx-auto border-solid border-b border-[#f1e1cf] flex justify-between items-center sm:pb-3 px-3 sm:px-0">
+    <header className="max-w-[570px] py-2 w-full mx-auto border-solid border-b border-[#f1e1cf] flex justify-between items-center sm:pb-3 px-3 sm:px-0">
       <div className="sm:w-[130px] flex items-center">
         <Dialog icon={iconQuestion} title="Como jugar">
           <p className="mb-3">Adivina la palabra en 6 intentos o menos.</p>
@@ -100,11 +99,11 @@ const Header = () => {
           nihil qui nobis obcaecati odit. Ea accusantium rem eos.
         </Dialog>
 
-        <Dialog icon={iconSettings} title="Opciones">
+        {/* <Dialog icon={iconSettings} title="Opciones">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit et
           alias velit eum provident eos ipsam magnam earum in? Tempore modi
           nihil qui nobis obcaecati odit. Ea accusantium rem eos.
-        </Dialog>
+        </Dialog> */}
       </div>
     </header>
   );

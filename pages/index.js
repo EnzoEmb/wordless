@@ -89,8 +89,8 @@ export default function Home() {
 
   return (
     <div
-      className="mx-auto max-w-3xl flex flex-col justify-between py-4 sm:pb-5"
-      style={{ minHeight: "100vh", Height: "calc(var(--vh) * 100)" }}
+      className="mx-auto max-w-3xl flex flex-col justify-between pb-4 sm:pb-5"
+      style={{ minHeight: "100vh", height: "calc(var(--vh) * 100)" }}
     >
       <Toaster />
       <Header />
