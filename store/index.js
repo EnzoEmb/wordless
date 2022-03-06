@@ -11,6 +11,7 @@ const useGuessStore = create(
     wrongLetters: [],
     allowTyping: true,
     hasWon: false,
+    repositoryIndex: 0,
     setWon: (value) => set(() => ({ hasWon: value })),
     addGuessLetter: (letter) =>
       set((state) => {
@@ -27,26 +28,28 @@ const useGuessStore = create(
         );
         return { currentGuess: newGuess };
       }),
-    setupNewWord: () => {
+    setNewWord: () => {
       if (get().wordsRepository.length === 0) {
         get().fetchNewWords();
       } else {
         set((state) => {
-          const newCurrentWord = state.wordsRepository[0].split("");
+          const newCurrentWord =
+            state.wordsRepository[state.repositoryIndex + 1];
           return {
             attemptNumber: 0,
             guessHistory: [],
             currentGuess: [],
             wrongLetters: [],
             currentWord: newCurrentWord,
-            wordsRepository: [...state.wordsRepository.slice(1)],
+            repositoryIndex: state.repositoryIndex + 1,
+            // wordsRepository: [...state.wordsRepository.slice(1)],
             allowTyping: true,
             hasWon: false,
           };
         });
       }
     },
-    setupNewGuess: () =>
+    setNewGuess: () =>
       set((state) => {
         // Take wrong letter from currentGuess
         let wrongLetters = [];
@@ -64,19 +67,19 @@ const useGuessStore = create(
         };
       }),
     fetchNewWords: async () => {
-      const letters = await fetch(`/api/es/words/5/10`, {
+      const letters = await fetch(`/api/es/words/5`, {
         // method: "POST",
         // body:
       });
       const words = await letters.json();
-      words.shift(); // Remove the first word
+      // words.shift(); // Remove the first word
 
       set({
         wordsRepository: words,
       });
-      get().setupNewWord();
+      get().setNewWord();
     },
-    setupAllowTyping: () => set((state) => ({ allowTyping: true })),
+    setAllowTyping: () => set((state) => ({ allowTyping: true })),
   }))
 );
 

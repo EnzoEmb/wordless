@@ -34,7 +34,7 @@ const Letter = ({ letter, isHistory, index, wordIndex }) => {
           ? "border-gray-400 animate-input-letter"
           : "")
       }
-      style={classes ? { animationDelay: index * 300 + "ms" } : {}}
+      style={classes ? { animationDelay: index * 150 + "ms" } : {}}
     >
       {letter}
     </div>

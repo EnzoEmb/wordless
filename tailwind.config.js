@@ -12,9 +12,9 @@ module.exports = {
         key: "0 3px 0 0 #e5e7eb",
       },
       animation: {
-        "flip-to-gray": "flipToGray .75s ease-in-out 0s 1 forwards running",
-        "flip-to-green": "flipToGreen .75s ease-in-out 0s 1 forwards running",
-        "flip-to-yellow": "flipToYellow .75s ease-in-out 0s 1 forwards running",
+        "flip-to-gray": "flipToGray .6s ease-in-out 0s 1 forwards running",
+        "flip-to-green": "flipToGreen .6s ease-in-out 0s 1 forwards running",
+        "flip-to-yellow": "flipToYellow .6s ease-in-out 0s 1 forwards running",
         "dialog-in": "modalIn .3s ease-out",
         "fade-in": "fadeIn .2s ease-out",
         "input-letter": "inputLetter .2s ease-out",

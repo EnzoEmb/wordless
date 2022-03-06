@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import useGuessStore from "../store";
 import useKeyPress from "../hooks/useKeyPressEventArray.js";
 import confetti from "canvas-confetti";
-import { ToastMiss, ToastWon } from "../components/Toasts";
+import { ToastMiss, ToastWon, ToastDictionary } from "../components/Toasts";
 import keys from "../utils/keys";
 
 export default function Home() {
@@ -15,12 +15,18 @@ export default function Home() {
   const addGuessLetter = useGuessStore((state) => state.addGuessLetter);
   const removeGuessLetter = useGuessStore((state) => state.removeGuessLetter);
   const fetchNewWords = useGuessStore((state) => state.fetchNewWords);
-  const setupNewGuess = useGuessStore((state) => state.setupNewGuess);
-  const setupNewWord = useGuessStore((state) => state.setupNewWord);
+  const setNewGuess = useGuessStore((state) => state.setNewGuess);
+  const setNewWord = useGuessStore((state) => state.setNewWord);
   const attemptNumber = useGuessStore((state) => state.attemptNumber);
   const allowTyping = useGuessStore((state) => state.allowTyping);
-  const setupAllowTyping = useGuessStore((state) => state.setupAllowTyping);
+  const setAllowTyping = useGuessStore((state) => state.setAllowTyping);
   const setWon = useGuessStore((state) => state.setWon);
+  const wordsRepository = useGuessStore((state) => state.wordsRepository);
+
+  function checkDictionary(guess) {
+    let word = guess.join().replaceAll(",", "");
+    return wordsRepository.includes(word);
+  }
 
   // Fetch new words if empty
   if (currentWord.length === 0) {
@@ -32,21 +38,28 @@ export default function Home() {
 
   const handleKeyPress = (key) => {
     if (!allowTyping) return;
-    console.log("triggered guess");
+    // console.log("triggered guess");
     if (key === "Backspace") {
       removeGuessLetter();
     } else if (key != "Enter") {
       addGuessLetter(key);
     } else if (key === "Enter" && currentGuess.length == 5) {
-      handleGuess();
+      if (checkDictionary(currentGuess)) {
+        handleGuess();
+      } else {
+        ToastDictionary();
+      }
     }
   };
 
   const handleGuess = () => {
     // console.log("triggered guess");
-    let won = currentGuess.join() === currentWord.join();
+    // console.log(currentGuess);
+    // console.log(currentWord);
+    // console.log(currentGuess.join().replaceAll(",", ""));
+    let won = currentGuess.join().replaceAll(",", "") === currentWord;
     if (won) {
-      setupNewGuess();
+      setNewGuess();
       setTimeout(() => {
         setWon(true);
         confetti({
@@ -58,21 +71,18 @@ export default function Home() {
             y: 0.1,
           },
         });
-        ToastWon(() => setupNewWord());
-      }, 1900);
+        ToastWon(() => setNewWord());
+      }, 1300);
     } else {
-      setupNewGuess();
+      setNewGuess();
       if (attemptNumber === 5) {
         setTimeout(() => {
-          ToastMiss(currentWord.join(""));
-          setTimeout(() => {
-            setupNewWord();
-          }, 1000);
-        }, 1900);
+          ToastMiss(() => setNewWord(), currentWord);
+        }, 1300);
       } else {
         setTimeout(() => {
-          setupAllowTyping(true);
-        }, 1900);
+          setAllowTyping(true);
+        }, 1300);
       }
     }
   };
